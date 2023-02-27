@@ -39,13 +39,13 @@ conv <- rep(44/12, times = nrow(df_all_xy))
 abat_MtCO2 <- as.numeric(df_all_xy$'Abat Mt C') * conv # add Mt CO2 column
 
 # add 2019$/tCO2 column:
-conv <- rep(12/44*1.81221, times = nrow(df_all_xy))
+conv <- rep(12/44*1.765145919, times = nrow(df_all_xy))
 price_tCO2 <- as.numeric(df_all_xy$'Price 1990$/t C') * conv
 df_all_xy <- cbind(df_all_xy,abat_MtCO2,price_tCO2) %>%   
   add_column(Year = "n/a") %>%
   rename('Price 2019$/t CO2' = price_tCO2) %>%
   rename('Abat Mt CO2' = abat_MtCO2)
-# inflation factor taken from St. Louis Federal Reserve Bank: https://fred.stlouisfed.org/series/FPCPITOTLZGUSA
+# inflation factor taken from St. Louis Federal Reserve Bank: https://fred.stlouisfed.org/series/A191RD3A086NBEA
 
 rm(df_all_x, df_all_y) # remove vectors that are not needed anymore
 
@@ -142,7 +142,7 @@ df_all_xy$delta[df_all_xy$delta<0] <- 0
 
 
 # new column: cost of abated emissions at each price level for each time step and each region in trillion 2019$
-cost <- as.numeric(df_all_xy$delta) * as.numeric(df_all_xy$'Price 2019$/t CO2') / 1000000
+cost <- .5 * as.numeric(df_all_xy$delta) * as.numeric(df_all_xy$'Price 2019$/t CO2') / 1000000
 
 df_all_xy <- cbind(df_all_xy,cost) %>%
   rename('Mit cost trill 2019$' = cost) %>%
@@ -230,7 +230,7 @@ gdp_1990_mill <- c(57074729.3,
              104982937,
              115199310)
                 
-gdp_2019_trill <-gdp_1990_mill / 1000000 * 1.81221
+gdp_2019_trill <-gdp_1990_mill / 1000000 * 1.765145919 # Source: https://fred.stlouisfed.org/series/A191RD3A086NBEA
 
 mit_cost_global_gdp <- as.numeric(mit_cost_global$'Mit cost trill 2019$') / as.numeric(gdp_2019_trill) * 100
 npv_global_gdp <- as.numeric(npv_glob) / as.numeric(gdp_2019_trill) * 100
