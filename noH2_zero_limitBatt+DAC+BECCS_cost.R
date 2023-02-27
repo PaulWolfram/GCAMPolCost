@@ -155,7 +155,7 @@ df_all_xy$'Abat Mt CO2' <- round(as.numeric(df_all_xy$'Abat Mt CO2'), digits=0)
 df_all_xy$'Abat Mt C' <- round(as.numeric(df_all_xy$'Abat Mt C'), digits=0)
 df_all_xy$'Price 2019$/t CO2' <- round(as.numeric(df_all_xy$'Price 2019$/t CO2'), digits=0)
 df_all_xy$'Price 1990$/t C' <- round(as.numeric(df_all_xy$'Price 1990$/t C'), digits=0)
-df_all_xy$'Mit cost trill 2019$' <- round(as.numeric(df_all_xy$'Mit cost trill 2019$'), digits=2)
+df_all_xy$'Mit cost trill 2019$' <- round(as.numeric(df_all_xy$'Mit cost trill 2019$'), digits=3)
 
 
 ##########################
@@ -181,7 +181,7 @@ mit_cost_country <- as.data.frame(mit_cost_country)
 colnames(mit_cost_country) <-  c("Mit cost trill 2019$","Region", "Time period")
 
 # change order of columns
-mit_cost_country$'Mit cost trill 2019$' <- round(as.numeric(mit_cost_country$'Mit cost trill 2019$'), digits=2)
+mit_cost_country$'Mit cost trill 2019$' <- round(as.numeric(mit_cost_country$'Mit cost trill 2019$'), digits=3)
 
 
 # add an NPV column at a discount factor of 5% (change discount_fact if needed)
@@ -194,7 +194,7 @@ mit_cost_country <- cbind(mit_cost_country,discount_period,npv) %>%
   rename('Discounting period' = discount_period) %>%
   rename('NPV trill 2019$' = npv)
 
-mit_cost_country$'NPV trill 2019$' <- round(as.numeric(mit_cost_country$'NPV trill 2019$'), digits=2)
+mit_cost_country$'NPV trill 2019$' <- round(as.numeric(mit_cost_country$'NPV trill 2019$'), digits=3)
 
 # change order of columns
 mit_cost_country <- mit_cost_country[,c(3,4,2,1,5)]
@@ -212,7 +212,7 @@ mit_cost_global <- rowsum(mit_cost_country$'Mit cost trill 2019$',rep((1:(nrow(m
 mit_cost_global <- cbind(mit_cost_global, periods_7)
 colnames(mit_cost_global) <- c("Mit cost trill 2019$", "Time period")
 mit_cost_global <- mit_cost_global[,c(2,1)]
-mit_cost_global$'Mit cost trill 2019$' <- round(as.numeric(mit_cost_global$'Mit cost trill 2019$'), digits=2)
+mit_cost_global$'Mit cost trill 2019$' <- round(as.numeric(mit_cost_global$'Mit cost trill 2019$'), digits=3)
 
 # add an NPV column at a discount factor of 5% (change the discount rate if needed)
 t <- rep(c(2020), each=7)
@@ -243,8 +243,8 @@ mit_cost_global <- cbind(mit_cost_global, gdp_2019_trill, mit_cost_global_gdp, n
 
 mit_cost_global$'GDP trill 2019$' <- round(as.numeric(mit_cost_global$'GDP trill 2019$'), digits=0)
 mit_cost_global$'Mit cost % GDP' <- round(as.numeric(mit_cost_global$'Mit cost % GDP'), digits=2)
-mit_cost_global$'NPV trill 2019$' <- round(as.numeric(mit_cost_global$'NPV trill 2019$'), digits=2)
-mit_cost_global$'NPV % GDP' <- round(as.numeric(mit_cost_global$'NPV % GDP'), digits=2)
+mit_cost_global$'NPV trill 2019$' <- round(as.numeric(mit_cost_global$'NPV trill 2019$'), digits=3)
+mit_cost_global$'NPV % GDP' <- round(as.numeric(mit_cost_global$'NPV % GDP'), digits=3)
 
 
 write.xlsx(mit_cost_global, file = "C:/Users/wolf184/OneDrive - PNNL/Documents/Projects/HFTO/__value_paper/outputs/pol_cost.xlsx", sheetName = "#3.5", append = TRUE, col.names = TRUE, row.names = TRUE)
